@@ -1,18 +1,18 @@
-import { MessageEmbed, Util } from 'discord.js';
+import {MessageEmbed, Util} from 'discord.js';
 import * as ytdl from 'ytdl-core'
 //import * as ytdl from 'ytdl-core-discord'
-import { search } from 'yt-search'
-import { getLyrics } from 'genius-lyrics-api';
+import {search} from 'yt-search'
+import {getLyrics} from 'genius-lyrics-api';
 import * as ytpl from 'ytpl';
 
 const queue = new Map();
 
-    const noVoiceEmbed = new MessageEmbed()
-      .setColor("RED")
-      .setTitle("🚫 | You are currently not in a voice channel. Please join one before the use of music commands.")
-      .setFooter("Hey Potatis - 2020");
+const noVoiceEmbed = new MessageEmbed()
+    .setColor("RED")
+    .setTitle("🚫 | You are currently not in a voice channel. Please join one before the use of music commands.")
+    .setFooter("Hey Potatis - 2020");
 
-    const noPermissionEmbed = new MessageEmbed()
+const noPermissionEmbed = new MessageEmbed()
       .setColor("RED")
       .setTitle("🚫 | I need the permission to join and speak in your voice channel!")
       .setFooter("Hey Potatis - 2020");
@@ -440,14 +440,31 @@ const queue = new Map();
   if (isNaN(args[1])) return message.channel.send(errEmbed("That is no valid amount."));
   if (serverQueue.songs.length == 1) return message.channel.send(errEmbed("There is currently no queue"));
   if (args[0] > serverQueue.songs.length) return message.channel.send(errEmbed(`There is currently only ${serverQueue.songs.length} in the queue.`));
-  try{
-    const song = serverQueue.songs.splice(args[1] - 1, 1);
-    message.channel.send(errEmbed(`❌ **|** Removed: **\`${song[0].title}\`** from the queue.`)).catch(console.error);
+    try {
+      const song = serverQueue.songs.splice(args[1] - 1, 1);
+      message.channel.send(errEmbed(`❌ **|** Removed: **\`${song[0].title}\`** from the queue.`)).catch(console.error);
+    } catch (error) {
+      console.log(error);
+      this.client.errHandler(message, error);
+      return message.channel.send(errEmbed("ERROR, Please contact @PotatisGrizen#8661"));
+    }
+  }
+
+async function shuffle(message: any, serverQueue: any) {
+  if (!serverQueue) return message.channels.send(errEmbed("There is no queue.")).catch(console.error);
+  try {
+    let songs = serverQueue.songs;
+    for (let i = songs.length - 1; i > 1; i--) {
+      let j = 1 + Math.floor(Math.random() * i);
+      [songs[i], songs[j]] = [songs[j], songs[i]];
+    }
+    serverQueue.songs = songs;
+    await message.react("✅")
   } catch (error) {
-    console.log(error);
-    this.client.errHandler(message, error);
-    return message.channel.send(errEmbed("ERROR, Please contact @PotatisGrizen#8661"));
+    message.guild.me.voice.channel.leave();
+    message.client.queue.delete(message.guild.id);
+    return message.channel.send(errEmbed(`:notes: The player has stopped and the queue has been cleared.: \`${error}\``));
   }
 }
 
-export { queue , execute, skip, stop, volume, np, q, pause, resume, loop, lyrics, remove }
+export {queue, execute, skip, stop, volume, np, q, pause, resume, loop, lyrics, remove, shuffle}
