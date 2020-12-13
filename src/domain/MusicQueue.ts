@@ -459,7 +459,6 @@ async function shuffle(message: any, serverQueue: any) {
       [songs[i], songs[j]] = [songs[j], songs[i]];
     }
     serverQueue.songs = songs;
-    await message.react("✅")
   } catch (error) {
     message.guild.me.voice.channel.leave();
     message.client.queue.delete(message.guild.id);
