@@ -1,7 +1,7 @@
-import { Command } from "../../domain/Command";
-import { Message } from "discord.js";
-import { PGClient } from "../../domain/PGClient";
-import {pause, queue, stop} from "../../domain/MusicQueue"
+import {Command} from "../../domain/Command";
+import {Message} from "discord.js";
+import {PGClient} from "../../domain/PGClient";
+import {queue, stop} from "../../domain/MusicQueue"
 
 class Stop extends Command {
 

@@ -1,6 +1,5 @@
 import {MessageEmbed, Util} from 'discord.js';
 import * as ytdl from 'ytdl-core'
-//import * as ytdl from 'ytdl-core-discord'
 import {search} from 'yt-search'
 import {getLyrics} from 'genius-lyrics-api';
 import * as ytpl from 'ytpl';
@@ -450,17 +449,17 @@ const noPermissionEmbed = new MessageEmbed()
     }
   }
 
-async function shuffle(message: any, serverQueue: any) {
-  if (!serverQueue) return message.channels.send(errEmbed("There is no queue.")).catch(console.error);
-  try {
-    let songs = serverQueue.songs;
-    for (let i = songs.length - 1; i > 1; i--) {
-      let j = 1 + Math.floor(Math.random() * i);
-      [songs[i], songs[j]] = [songs[j], songs[i]];
-    }
-    serverQueue.songs = songs;
-  } catch (error) {
-    message.guild.me.voice.channel.leave();
+  function shuffle(message: any, serverQueue: any) {
+    if (!serverQueue) return message.channels.send(errEmbed("There is no queue.")).catch(console.error);
+    try {
+      let songs = serverQueue.songs;
+      for (let i = songs.length - 1; i > 1; i--) {
+        let j = 1 + Math.floor(Math.random() * i);
+        [songs[i], songs[j]] = [songs[j], songs[i]];
+      }
+      serverQueue.songs = songs;
+    } catch (error) {
+      message.guild.me.voice.channel.leave();
     message.client.queue.delete(message.guild.id);
     return message.channel.send(errEmbed(`:notes: The player has stopped and the queue has been cleared.: \`${error}\``));
   }

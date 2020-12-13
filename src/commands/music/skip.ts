@@ -1,7 +1,7 @@
-import { Command } from "../../domain/Command";
-import { Message } from "discord.js";
-import { PGClient } from "../../domain/PGClient";
-import {pause, queue, skip} from "../../domain/MusicQueue"
+import {Command} from "../../domain/Command";
+import {Message} from "discord.js";
+import {PGClient} from "../../domain/PGClient";
+import {queue, skip} from "../../domain/MusicQueue"
 
 class Skip extends Command {
 

@@ -1,7 +1,7 @@
-import { Command } from "../../domain/Command";
-import { Message } from "discord.js";
-import { PGClient } from "../../domain/PGClient";
-import {pause, queue, remove} from "../../domain/MusicQueue";
+import {Command} from "../../domain/Command";
+import {Message} from "discord.js";
+import {PGClient} from "../../domain/PGClient";
+import {queue, remove} from "../../domain/MusicQueue";
 
 class Remove extends Command {
 

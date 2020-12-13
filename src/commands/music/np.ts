@@ -1,7 +1,7 @@
-import { Command } from "../../domain/Command";
-import { Message } from "discord.js";
-import { PGClient } from "../../domain/PGClient";
-import {queue, np, loop} from "../../domain/MusicQueue";
+import {Command} from "../../domain/Command";
+import {Message} from "discord.js";
+import {PGClient} from "../../domain/PGClient";
+import {np, queue} from "../../domain/MusicQueue";
 
 class Np extends Command {
 

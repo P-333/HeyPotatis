@@ -1,7 +1,7 @@
-import { Command } from "../../domain/Command";
-import { Message, MessageEmbed } from "discord.js";
-import { PGClient } from "../../domain/PGClient";
-import {queue, execute, loop} from "../../domain/MusicQueue";
+import {Command} from "../../domain/Command";
+import {Message, MessageEmbed} from "discord.js";
+import {PGClient} from "../../domain/PGClient";
+import {execute} from "../../domain/MusicQueue";
 
 class Play extends Command {
 

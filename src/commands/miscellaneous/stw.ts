@@ -1,6 +1,6 @@
-import { Command } from "../../domain/Command";
-import { Message, MessageEmbed, Collection } from "discord.js";
-import { PGClient } from "../../domain/PGClient";
+import {Command} from "../../domain/Command";
+import {Message, MessageEmbed} from "discord.js";
+import {PGClient} from "../../domain/PGClient";
 
 class Stw extends Command {
 

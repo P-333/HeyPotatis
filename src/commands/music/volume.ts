@@ -1,7 +1,7 @@
-import { Command } from "../../domain/Command";
-import { Message } from "discord.js";
-import { PGClient } from "../../domain/PGClient";
-import {pause, queue, volume} from "../../domain/MusicQueue";
+import {Command} from "../../domain/Command";
+import {Message} from "discord.js";
+import {PGClient} from "../../domain/PGClient";
+import {queue, volume} from "../../domain/MusicQueue";
 
 class Volume extends Command {
 
