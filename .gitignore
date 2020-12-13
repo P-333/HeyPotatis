@@ -10,6 +10,9 @@
 # Idea file
 /.idea
 
+# VSCode
+/.vscode
+
 # Logs
 logs
 *.log
