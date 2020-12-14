@@ -458,6 +458,11 @@ const noPermissionEmbed = new MessageEmbed()
         [songs[i], songs[j]] = [songs[j], songs[i]];
       }
       serverQueue.songs = songs;
+      const shuffleEmbed = new MessageEmbed()
+          .setTitle("🔀 | I have shuffled the queue.")
+          .setColor("GREEN")
+          .setFooter("Hey Potatis - 2020");
+      message.channel.send(shuffleEmbed);
     } catch (error) {
       message.guild.me.voice.channel.leave();
     message.client.queue.delete(message.guild.id);
