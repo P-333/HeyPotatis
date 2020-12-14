@@ -1,9 +1,9 @@
-import { PGClient } from "./domain/PGClient";
-import { config } from "dotenv";
+import {PGClient} from "./domain/PGClient";
+import {config} from "dotenv";
 import {Message, MessageEmbed} from "discord.js";
-import { readFile } from 'fs'
+import {readFile} from 'fs'
 
-config({ path: "../.env" });
+config({path: "../.env"});
 
 const client: PGClient = new PGClient(process.env.BOT_TOKEN);
 const PREFIX = process.env.PREFIX as string;
@@ -22,8 +22,7 @@ client.on("ready", async (): Promise<void> => {
 
     let statuses: any;
 
-    setInterval(function() {
-
+    function readStatuses() {
         readFile('../resources/statuses.json', 'utf8', (err, data) => {
 
             if (err) {
@@ -32,6 +31,14 @@ client.on("ready", async (): Promise<void> => {
                 statuses = JSON.parse(data);
             }
         });
+    }
+
+    readStatuses()
+
+
+    setInterval(function () {
+
+        readStatuses();
 
         let status = statuses[Math.floor(Math.random() * statuses.length)];
         client.user?.setPresence({

@@ -177,9 +177,9 @@ const noPermissionEmbed = new MessageEmbed()
   function stop(message: any, serverQueue: any) {
     if (!message.member.voice.channel)
       return message.channel.send(
-        noVoiceEmbed
+          noVoiceEmbed
       );
-    if (serverQueue.songs.length === 1) serverQueue.songs = [];
+    if (serverQueue.songs.length < 1) serverQueue.songs = [];
     serverQueue.connection.dispatcher.end();
     serverQueue.voiceChannel.leave();
   }
@@ -464,10 +464,10 @@ const noPermissionEmbed = new MessageEmbed()
           .setFooter("Hey Potatis - 2020");
       message.channel.send(shuffleEmbed);
     } catch (error) {
-      message.guild.me.voice.channel.leave();
-    message.client.queue.delete(message.guild.id);
-    return message.channel.send(errEmbed(`:notes: The player has stopped and the queue has been cleared.: \`${error}\``));
-  }
+      serverQueue.voiceChannel.leave();
+      serverQueue.connection.dispatcher.end();
+      return message.channel.send(errEmbed(`:notes: The player has stopped and the queue has been cleared.: \`${error}\``));
+    }
 }
 
 export {queue, execute, skip, stop, volume, np, q, pause, resume, loop, lyrics, remove, shuffle}
