@@ -58,14 +58,14 @@ const noPermissionEmbed = new MessageEmbed()
 
     if (url.match(/(?:http(?:s)?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^?&"'<> #]+)/)) {
         try {
-          const songinfo =  await ytdl.getInfo(url)
-          if (!songinfo) return message.channel.send(errEmbed("Nothing found on that url"))
+          const songInfo = await ytdl.getInfo(url)
+          if (!songInfo) return message.channel.send(errEmbed("Nothing found on that url"))
           song = {
-            id: songinfo.videoDetails.videoId,
-            title: Util.escapeMarkdown(songinfo.videoDetails.title),
-            url: songinfo.videoDetails.video_url,
-            views: String(songinfo.videoDetails.viewCount).padStart(10, ' '),
-            duration: songinfo.videoDetails.lengthSeconds,
+            id: songInfo.videoDetails.videoId,
+            title: Util.escapeMarkdown(songInfo.videoDetails.title),
+            url: songInfo.videoDetails.video_url,
+            views: String(songInfo.videoDetails.viewCount).padStart(10, ' '),
+            duration: songInfo.videoDetails.lengthSeconds,
             req: message.author
           }
           await handleVideo(song, message, voiceChannel, false)
@@ -176,10 +176,8 @@ const noPermissionEmbed = new MessageEmbed()
 
   function stop(message: any, serverQueue: any) {
     if (!message.member.voice.channel)
-      return message.channel.send(
-          noVoiceEmbed
-      );
-    if (serverQueue.songs.length < 1) serverQueue.songs = [];
+      return message.channel.send(noVoiceEmbed);
+    if (serverQueue.songs.length <= 1) serverQueue.songs = [];
     serverQueue.connection.dispatcher.end();
     serverQueue.voiceChannel.leave();
   }
