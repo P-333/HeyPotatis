@@ -58,7 +58,7 @@ client.on('shardError', error => {
 
 client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));
-// if(process.env.NODE_ENV === 'development') client.on("debug", (e) => console.info(e));
+if (process.env.NODE_ENV === 'development') client.on("debug", (e) => console.info(e));
 
 process.on('uncaughtException', error => console.log(error));
 +

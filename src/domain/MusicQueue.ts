@@ -102,17 +102,30 @@ const noPermissionEmbed = new MessageEmbed()
         message.channel.send(errEmbed("ERROR, Please contact @PotatisGrizen#8661"));
         this.client.errHandler(message, error);
       }
+    } else if (url.match(/^https?:\/\/(open.spotify.com)\/track(.*)$/)) {
+      // https://open.spotify.com/track/7ce20yLkzuXXLUhzIDoZih?si=HyjlsNuuSzOiStWN1dCyyw
+      const id = url.toString()
+          .split("/")
+          .splice(4, 1)
+          .join("/")
+          .split("?")
+          .splice(0, 1)
+          .join("?");
+      console.log(id);
+
+    } else if (url.match(/^https?:\/\/(open.spotify.com)\/playlist(.*)$/)) {
+      //https://open.spotify.com/playlist/7IyhkbeZ6g0awowEPYZbHW?si=ztiG0N1ySiC02raDIugyQQ
     } else {
-        try {
-          let searched = await search(searchString);
-          if(searched.videos.length === 0) return message.channel.send(errEmbed("Nothing found on that search term"));
-          const songInfo = searched.videos[0]
-          song = {
-            id: songInfo.videoId,
-            title: Util.escapeMarkdown(songInfo.title),
-            url: songInfo.url,
-            views: String(songInfo.views).padStart(10, ' '),
-            duration: songInfo.duration.toString(),
+      try {
+        let searched = await search(searchString);
+        if (searched.videos.length === 0) return message.channel.send(errEmbed("Nothing found on that search term"));
+        const songInfo = searched.videos[0]
+        song = {
+          id: songInfo.videoId,
+          title: Util.escapeMarkdown(songInfo.title),
+          url: songInfo.url,
+          views: String(songInfo.views).padStart(10, ' '),
+          duration: songInfo.duration.toString(),
             req: message.author
           }
           await handleVideo(song, message, voiceChannel, false)
@@ -177,16 +190,16 @@ const noPermissionEmbed = new MessageEmbed()
   function stop(message: any, serverQueue: any) {
     if (!message.member.voice.channel)
       return message.channel.send(noVoiceEmbed);
-    if (serverQueue.songs.length <= 1) serverQueue.songs = [];
     serverQueue.connection.dispatcher.end();
     serverQueue.voiceChannel.leave();
+    queue.delete(message.guild.id);
   }
 
   async function play(guild: any, song: any) {
 
     const serverQueue = queue.get(guild.id);
     if (!song) {
-      // serverQueue.voiceChannel.leave();
+      serverQueue.voiceChannel.leave();
       queue.delete(guild.id);
       return;
     }
@@ -195,11 +208,21 @@ const noPermissionEmbed = new MessageEmbed()
     if (song.url.includes("youtube.com")) {
 
       stream = await ytdl(song.url);
-      stream.on('error', function(err: string)  {
-      if (err) {
-        if (serverQueue) {
+      stream.on('error', function (err: string) {
+        if (err) {
+          if (serverQueue) {
             serverQueue.songs.shift();
-            play(guild ,serverQueue.songs[0]);
+            play(guild, serverQueue.songs[0]);
+          }
+        }
+      });
+    } else if (song.url.includes("spotify.com")) {
+      stream = await ytdl(song.url);
+      stream.on('error', function (err: string) {
+        if (err) {
+          if (serverQueue) {
+            serverQueue.songs.shift();
+            play(guild, serverQueue.songs[0]);
           }
         }
       });
