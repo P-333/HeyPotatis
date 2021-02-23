@@ -1,4 +1,4 @@
-import {MessageEmbed, Util} from 'discord.js';
+import {Channel, MessageEmbed, Util} from 'discord.js';
 import * as ytdl from 'ytdl-core'
 import {search} from 'yt-search'
 import {getLyrics} from 'genius-lyrics-api';
@@ -6,12 +6,12 @@ import * as ytpl from 'ytpl';
 
 const queue = new Map();
 
-const noVoiceEmbed = new MessageEmbed()
-    .setColor("RED")
-    .setTitle("🚫 | You are currently not in a voice channel. Please join one before the use of music commands.")
-    .setFooter("Hey Potatis - 2020");
+    const noVoiceEmbed = new MessageEmbed()
+      .setColor("RED")
+      .setTitle("🚫 | You are currently not in a voice channel. Please join one before the use of music commands.")
+      .setFooter("Hey Potatis - 2020");
 
-const noPermissionEmbed = new MessageEmbed()
+    const noPermissionEmbed = new MessageEmbed()
       .setColor("RED")
       .setTitle("🚫 | I need the permission to join and speak in your voice channel!")
       .setFooter("Hey Potatis - 2020");
@@ -119,7 +119,7 @@ const noPermissionEmbed = new MessageEmbed()
       try {
         let searched = await search(searchString);
         if (searched.videos.length === 0) return message.channel.send(errEmbed("Nothing found on that search term"));
-        const songInfo = searched.videos[0]
+        const songInfo = searched.videos[1]
         song = {
           id: songInfo.videoId,
           title: Util.escapeMarkdown(songInfo.title),
@@ -188,11 +188,20 @@ const noPermissionEmbed = new MessageEmbed()
   }
 
   function stop(message: any, serverQueue: any) {
-    if (!message.member.voice.channel)
+    if (!message.member.voice.channel) {
+      serverQueue.connection.dispatcher.end();
+      queue.delete(message.guild.id);
       return message.channel.send(noVoiceEmbed);
-    serverQueue.connection.dispatcher.end();
-    serverQueue.voiceChannel.leave();
-    queue.delete(message.guild.id);
+    }
+    if (!serverQueue) {
+      message.guild.me.voice.channel.leave(); 
+    }
+    else {
+      serverQueue.connection.dispatcher.end();
+      serverQueue.voiceChannel.leave();
+      message.guild.me.voice.channel.leave(); 
+      queue.delete(message.guild.id);
+    }
   }
 
   async function play(guild: any, song: any) {
@@ -271,7 +280,7 @@ const noPermissionEmbed = new MessageEmbed()
     if (!args[1]) return message.channel.send(serverVolumeEmbed);
     if(isNaN(args[1])) return message.channel.send(invalidAmountEmbed);
     serverQueue.volume  = args[1];
-    serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1] / 5);
+    serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1]);
     message.channel.send(changedVolumeEmbed)
   }
 

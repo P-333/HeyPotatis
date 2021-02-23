@@ -2,6 +2,7 @@ import {PGClient} from "./domain/PGClient";
 import {config} from "dotenv";
 import {Message, MessageEmbed} from "discord.js";
 import {readFile} from 'fs'
+import  { queue } from './domain/MusicQueue'
 
 config({path: "../.env"});
 
@@ -67,9 +68,13 @@ process.on('unhandledRejection', error => {
 });
 
 client.on("voiceStateUpdate", state =>  {
-    if (state.serverDeaf) return
     if (state.id == '759787879479115807' && '548231969637662720') {
-        return state.setDeaf(true);
+        if (!state.channel) {
+            queue.delete(state.guild.id)
+            console.log("Deleted queue")
+        }
+        if (state.serverDeaf) return
+        state.setDeaf(true).then();
     }
 })
 
