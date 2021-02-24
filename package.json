@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "@blad3mak3r/reddit-memes": "^0.2.4",
     "@types/node-fetch": "^2.5.7",
     "@types/spotify-web-api-node": "^4.0.2",
     "@types/yt-search": "^2.3.0",
@@ -12,8 +11,8 @@
     "dotenv": "^8.2.0",
     "ffmpeg": "^0.0.4",
     "fluent-ffmpeg": "^2.1.2",
-    "genius-lyrics-api": "github:potatisgrizen/genius_lyrics_api",
     "moment": "^2.29.1",
+    "genius-lyrics-api": "github:potatisgrizen/genius-lyrics-api",
     "node-fetch": "^2.6.1",
     "node-gyp": "^7.1.2",
     "opusscript": "0.0.8",
