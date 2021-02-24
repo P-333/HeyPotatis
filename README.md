@@ -19,6 +19,6 @@ npm install react-parallax-tilt
 
 - Under development
 
-### A discord bot made by PotatisGrizen
+#### A discord bot made by PotatisGrizen
 
 </details>
