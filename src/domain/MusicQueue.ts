@@ -208,9 +208,11 @@ const queue = new Map();
 
     const serverQueue = queue.get(guild.id);
     if (!song) {
-      serverQueue.voiceChannel.leave();
-      queue.delete(guild.id);
-      return;
+      setTimeout(() => {
+        serverQueue.voiceChannel.leave();
+        queue.delete(guild.id);
+        return;
+      }, 30 * 60 * 1000);
     }
 
     let stream = null;
