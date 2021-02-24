@@ -54,9 +54,6 @@ build/Release
 
 # Dependency directories
 node_modules/
-
-!node_modules/genius/lyrics-api/
-
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)

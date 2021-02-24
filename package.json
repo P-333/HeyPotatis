@@ -12,7 +12,7 @@
     "dotenv": "^8.2.0",
     "ffmpeg": "^0.0.4",
     "fluent-ffmpeg": "^2.1.2",
-    "genius-lyrics-api": "^3.0.3",
+    "genius-lyrics-api": "github:potatisgrizen/genius_lyrics_api",
     "moment": "^2.29.1",
     "node-fetch": "^2.6.1",
     "node-gyp": "^7.1.2",
