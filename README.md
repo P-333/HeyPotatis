@@ -19,8 +19,7 @@ npm install react-parallax-tilt
 
 - Under development
 
-
-Clone project repo that you wish to test with react-parallax-tilt library and run:
+To compile yourself
 
 ```bash
 npm install
