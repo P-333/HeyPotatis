@@ -24,6 +24,6 @@ tsc -w
 npm start
 ```
 
-# A discord bot made by PotatisGrizen
+### A discord bot made by PotatisGrizen
 
 </details>
