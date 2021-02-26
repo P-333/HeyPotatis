@@ -31,7 +31,7 @@
         * [ ] Song
 * [ ] Fix bugs with the stop command
 * [ ] Fix the meme command
-* [ ] Code revamp
+* [x] Code revamp
 * [ ] Fix a standard style across all commands.
 * [ ] Fix the bugs in lyrics command
 * [ ] Fix settings for each guild
