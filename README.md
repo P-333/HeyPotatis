@@ -30,8 +30,10 @@
         * [ ] Playlist
         * [ ] Song
 * [ ] Fix bugs with the stop command
-* [ ] Style revamp 
-* [ ] Fix the lyrics command
+* [ ] Fix the meme command
+* [ ] Code revamp
+* [ ] Fix a standard style across all commands.
+* [ ] Fix the bugs in lyrics command
 * [ ] Fix settings for each guild
     * [ ] Custom timeout
         * [ ] 24/7 mode
