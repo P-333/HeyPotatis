@@ -9,8 +9,10 @@
     "outDir": "dist",
     "pretty": true
   },
+  "compileOnSave": true,
   "include": [
-    "src", "module.d.ts"
+    "src",
+    "module.d.ts"
   ],
   "exclude": [
     "dist"

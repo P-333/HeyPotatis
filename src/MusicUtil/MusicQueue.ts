@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import {MessageEmbed} from 'discord.js';
 
 const queue = new Map();
 
@@ -25,5 +25,3 @@ const errEmbed = (msg: string) => {
 };
 
 export { queue, noPermissionEmbed, noVoiceEmbed, nothingPlayingEmbed, errEmbed};
-
-//export {queue, skip, stop, volume, np, q, pause, resume, loop, lyrics, remove, shuffle}

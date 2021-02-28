@@ -2,7 +2,7 @@ import {PGClient} from './domain/PGClient';
 import {config} from 'dotenv';
 import {Message, MessageEmbed} from 'discord.js';
 import {readFile} from 'fs';
-import  { queue } from './MusicUtil/MusicQueue';
+import {queue} from './MusicUtil/MusicQueue';
 
 config({path: '../.env'});
 
@@ -37,10 +37,9 @@ client.on('ready', async (): Promise<void> => {
   readStatuses();
 
 
-  setInterval(function () {
+  setInterval(() => {
 
     readStatuses();
-
     const status = statuses[Math.floor(Math.random() * statuses.length)];
     client.user?.setPresence({
       status: 'online',
@@ -71,7 +70,6 @@ client.on('voiceStateUpdate', state =>  {
   if (state.id == '759787879479115807' && '548231969637662720') {
     if (!state.channel) {
       queue.delete(state.guild.id);
-      console.log('Deleted queue');
     }
     if (state.serverDeaf) return;
     state.setDeaf(true).then();

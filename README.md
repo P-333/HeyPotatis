@@ -16,32 +16,6 @@
 **[Invite link](https://discord.com/api/oauth2/authorize?client_id=759787879479115807&permissions=8&scope=bot)**. Discord bot created with [Discord.js](https://github.com/discordjs/discord.js)
 
 
-## Todo
-
-* [ ] Help command
-* Video sources
-    * [x] Youtube
-        * [x] Playlist
-        * [x] Video
-    * [ ] Spotify
-        * [ ] Playlist
-        * [ ] Song
-    * [ ] Soundcloud
-        * [ ] Playlist
-        * [ ] Song
-* [ ] Fix bugs with the stop command
-* [ ] Fix the meme command
-* [x] Code revamp
-* [ ] Fix a standard style across all commands.
-* [ ] Fix the bugs in lyrics command
-* [ ] Fix settings for each guild
-    * [ ] Custom timeout
-        * [ ] 24/7 mode
-    * [ ] Custom prefix
-    * [ ] DJ only mode
-
-
-
 ## Features
 
 - Play music from youtube, both playlist and video
@@ -55,4 +29,3 @@
 
 #### A discord bot made by PotatisGrizen
 
-</details>
