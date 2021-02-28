@@ -1,5 +1,5 @@
-import { Message } from "discord.js";
-import { PGClient } from "./PGClient";
+import { Message } from 'discord.js';
+import { PGClient } from './PGClient';
 
 interface CommandData{
     name: string;
@@ -19,21 +19,21 @@ class Command {
 
     constructor(client: PGClient, data: CommandData) {
 
-        this.client = client;
+      this.client = client;
 
-        this.name = data.name;
+      this.name = data.name;
 
-        this.aliases = data.aliases ?? [];
-        this.usage = data.usage ?? "N/A";
+      this.aliases = data.aliases ?? [];
+      this.usage = data.usage ?? 'N/A';
 
-        this.description = data.description;
+      this.description = data.description;
 
     }
 
     public run(message: Message, args: string[]): void {
-        throw new Error("Methods not implemented.");
+      throw new Error('Methods not implemented.');
     }
 
 }
 
-export { Command }
+export { Command };
