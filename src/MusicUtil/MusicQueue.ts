@@ -18,10 +18,12 @@ const nothingPlayingEmbed = new MessageEmbed()
   .setFooter('Hey Potatis - 2020');
 
 const errEmbed = (msg: string) => {
-  return new MessageEmbed()
-    .setTitle(msg)
-    .setColor('RED')
-    .setFooter('Hey Potatis - 2020');
+  if (msg) {
+    return new MessageEmbed()
+        .setTitle(msg)
+        .setColor('RED')
+        .setFooter('Hey Potatis - 2020');
+  }
 };
 
 export { queue, noPermissionEmbed, noVoiceEmbed, nothingPlayingEmbed, errEmbed};

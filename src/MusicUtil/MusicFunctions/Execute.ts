@@ -1,9 +1,14 @@
-import { Util } from 'discord.js';
+import {Util} from 'discord.js';
 import * as ytdl from 'ytdl-core';
-import {search} from 'yt-search';
+import * as youtubeSearch from 'youtube-search'
 import * as ytpl from 'ytpl';
-import { noPermissionEmbed, noVoiceEmbed, errEmbed } from '../MusicQueue';
+import {errEmbed, noPermissionEmbed, noVoiceEmbed} from '../MusicQueue';
 import handleVideo from '../../util/HandleVideo';
+
+var opts: youtubeSearch.YouTubeSearchOptions = {
+  maxResults: 10,
+  key: process.env.YOUTUBE_API_KEY
+};
 
 
 export default async function execute(this: any, message: any) {
@@ -12,7 +17,7 @@ export default async function execute(this: any, message: any) {
   const voiceChannel = message.member.voice.channel;
   if (!voiceChannel)
     return message.channel.send(
-      noVoiceEmbed
+        noVoiceEmbed
     );
   const permissions = voiceChannel.permissionsFor(message.client.user);
   if (!permissions.has('CONNECT') || !permissions.has('SPEAK')) {
@@ -22,7 +27,7 @@ export default async function execute(this: any, message: any) {
   }
 
   const searchString = args.join(' ');
-  if (!searchString)return message.channel.send(errEmbed('You didn\'t provide a search term.'));
+  if (!searchString) return message.channel.send(errEmbed('You didn\'t provide a search term.'));
   const url = args[1] ? args[1].replace(/<(.+)>/g, '$1') : '';
 
   let song = {
@@ -95,15 +100,15 @@ export default async function execute(this: any, message: any) {
     //https://open.spotify.com/playlist/7IyhkbeZ6g0awowEPYZbHW?si=ztiG0N1ySiC02raDIugyQQ
   } else {
     try {
-      const searched = await search(searchString);
-      if (searched.videos.length === 0) return message.channel.send(errEmbed('Nothing found on that search term'));
-      const songInfo = searched.videos[1];
+      const searched = await youtubeSearch(searchString, opts);
+      if (searched.results.length === 0) return message.channel.send(errEmbed('Nothing found on that search term'));
+      const songInfo = searched.results[0];
       song = {
-        id: songInfo.videoId,
+        id: songInfo.channelId,
         title: Util.escapeMarkdown(songInfo.title),
-        url: songInfo.url,
-        views: String(songInfo.views).padStart(10, ' '),
-        duration: songInfo.duration.toString(),
+        url: songInfo.link,
+        views: "No info",
+        duration: "No info",
         req: message.author
       };
       await handleVideo(song, message, voiceChannel, false);

@@ -1,15 +1,14 @@
-import { MessageEmbed } from 'discord.js';
+import {MessageEmbed} from 'discord.js';
 import * as ytdl from 'ytdl-core';
-import { queue } from '../MusicQueue';
+import {queue} from '../MusicQueue';
 
 export default async function play(guild: any, song: any) {
 
   const serverQueue = queue.get(guild.id);
   if (!song) {
-    setTimeout(() => {
+    return setTimeout(() => {
       serverQueue.voiceChannel.leave();
       queue.delete(guild.id);
-      return;
     }, 30 * 60 * 1000);
   }
 
