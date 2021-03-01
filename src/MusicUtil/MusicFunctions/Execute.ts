@@ -115,7 +115,6 @@ export default async function execute(this: any, message: any) {
     } catch (error) {
       console.log(error);
       message.channel.send(errEmbed('ERROR, Please contact @PotatisGrizen#8661'));
-      this.client.errHandler(message, error);
     }
   }
 }
