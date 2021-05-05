@@ -6,7 +6,7 @@
   "dependencies": {
     "@types/node-fetch": "^2.5.8",
     "discord.js": "^12.5.2",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.4.0",
     "ffmpeg": "^0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "genius-lyrics-api": "github:potatisgrizen/genius-lyrics-api",
