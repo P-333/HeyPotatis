@@ -11,7 +11,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "genius-lyrics-api": "github:potatisgrizen/genius-lyrics-api",
     "moment": "^2.29.1",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.1.0",
     "node-gyp": "^7.1.2",
     "opusscript": "0.0.8",
     "tsc": "^1.20150623.0",
